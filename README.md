@@ -50,10 +50,11 @@ RegExp构造函数属性：
 注意：在匹配后，rgExp 的 lastIndex 属性被设置为匹配文本的最后一个字符的下一个位置。lastIndex并不在返回对象的属性中，而是正则表达式对象的属性。
 
 1、test方法：返回Boolen值。不忽略lastIndex。  格式：reg.test(str)
-  //校验手机号格式
-  function checkPhone(str){
-    return /^1\d{10}$/.test(str);
-  }
+
+    //校验手机号格式
+    function checkPhone(str){
+      return /^1\d{10}$/.test(str);
+    }
 
 2、exec方法：返回数组[match1,分组match2,...,index:'匹配到的索引位置',input:'原始字符串内容']。不忽略lastIndex。 格式：reg.exec(str)。
       exec默认只返回匹配结果的第一个值，无论re表达式用不用全局标记g。如果为正则表达式设置了全局标记g，exec从上次匹配结束的位置开始查找。如果没有设置全局标志，exec依然从字符串的起始位置开始搜索。利用这个特点可以反复调用exec遍历所有匹配，等价于match具有g标志。当然，如果正则表达式忘记用g，而又用循环（比如：while、for等)，exec将每次都循环第一个，造成死循环。
@@ -83,30 +84,28 @@ RegExp构造函数属性：
 
 4、matchAll方法：返回是一个遍历器（Iterator），而不是数组。需要用for...of来遍历。与exec类似，只不过不用while循环了
 
-  var regex = /t(e)(st(\d?))/g;
-  var string = 'test1test2test3';
-  var matches = [];
-  var match;
-  while (match = regex.exec(string)) {
-    matches.push(match);
-  }
-  matches
-  // [
-  //   ["test1", "e", "st1", "1", index: 0, input: "test1test2test3"],
-  //   ["test2", "e", "st2", "2", index: 5, input: "test1test2test3"],
-  //   ["test3", "e", "st3", "3", index: 10, input: "test1test2test3"]
-  // ]
+    var regex = /t(e)(st(\d?))/g;
+    var string = 'test1test2test3';
+    var matches = [];
+    var match;
+    while (match = regex.exec(string)) {
+      matches.push(match);
+    }
+    matches
+    // [
+    //   ["test1", "e", "st1", "1", index: 0, input: "test1test2test3"],
+    //   ["test2", "e", "st2", "2", index: 5, input: "test1test2test3"],
+    //   ["test3", "e", "st3", "3", index: 10, input: "test1test2test3"]
+    // ]
   
-
-  const string = 'test1test2test3';
-  const regex = /t(e)(st(\d?))/g;// g 修饰符加不加都可以
-  for (const match of string.matchAll(regex)) {
-    console.log(match);
-  }
-  // ["test1", "e", "st1", "1", index: 0, input: "test1test2test3"]
-  // ["test2", "e", "st2", "2", index: 5, input: "test1test2test3"]
-  // ["test3", "e", "st3", "3", index: 10, input: "test1test2test3"]
-
+    const string = 'test1test2test3';
+    const regex = /t(e)(st(\d?))/g;// g 修饰符加不加都可以
+    for (const match of string.matchAll(regex)) {
+      console.log(match);
+    }
+    // ["test1", "e", "st1", "1", index: 0, input: "test1test2test3"]
+    // ["test2", "e", "st2", "2", index: 5, input: "test1test2test3"]
+    // ["test3", "e", "st3", "3", index: 10, input: "test1test2test3"]
 
 5、replace方法：返回新字符串。 格式：str.replace(oldstr/reg, newstr/反引用符号$1/function(match1,match2...,pos,originalText){})
       该方法接受两个参数，第一个参数可以是RegExp对象或者是一个字符串（字符串不会被转成正则表达式），第二个参数可以是一个字符串或者是一个函数。如果第一个参数是字符串，那么它只会替换匹配到的第一项。要想替换所有匹配到的字符串，就需要提供一个正则表达式，而且要指定全局匹配(g)。
