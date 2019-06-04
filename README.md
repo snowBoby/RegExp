@@ -29,6 +29,7 @@
 
 2、exec方法：返回数组[match1,分组match2,...,index:'匹配到的索引位置',input:'原始字符串内容']。不忽略lastIndex。 格式：reg.exec(str)。
       exec默认只返回匹配结果的第一个值，无论re表达式用不用全局标记g。如果为正则表达式设置了全局标记g，exec从上次匹配结束的位置开始查找。如果没有设置全局标志，exec依然从字符串的起始位置开始搜索。利用这个特点可以反复调用exec遍历所有匹配，等价于match具有g标志。当然，如果正则表达式忘记用g，而又用循环（比如：while、for等)，exec将每次都循环第一个，造成死循环。
+
       var r, re; // 声明变量。 
       var s = "The rain in Spain falls mainly in the plain"; 
       re = /[\w]*(ai)n/ig; 
