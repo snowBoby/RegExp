@@ -107,11 +107,17 @@ RegExp构造函数属性：
     // ["test2", "e", "st2", "2", index: 5, input: "test1test2test3"]
     // ["test3", "e", "st3", "3", index: 10, input: "test1test2test3"]
 
-5、replace方法：返回新字符串。 格式：str.replace(oldstr/reg, newstr/反引用符号$1/function(match1,match2...,pos,originalText){})
+5、replace方法：返回新字符串。 格式：str.replace(oldstr/reg, newstr/反引用符号$1/$$/$&/$`/$'/$nn/function(match1,match2...,pos,originalText){})
       该方法接受两个参数，第一个参数可以是RegExp对象或者是一个字符串（字符串不会被转成正则表达式），第二个参数可以是一个字符串或者是一个函数。如果第一个参数是字符串，那么它只会替换匹配到的第一项。要想替换所有匹配到的字符串，就需要提供一个正则表达式，而且要指定全局匹配(g)。
       第二个参数function(match1,match2...,pos,originalText)这个函数有三个参数，分别是：模式匹配的项，模式匹配项在字符串中的位置，原始字符串。在正则表达式中定义了多个捕获组的情况下，传递给函数的参数会发生变化，依次是：模式匹配的项，第一个捕获组的匹配项，第二个捕获组匹配的项......，但最后两个参数仍然是模式匹配项在字符串中的位置和原始字符串。
       注意：在替换文本里$有了特殊的含义，所以我们如果想要是用$这个字符的话，需要写成$$。
-
+      $$:代表$
+      $&:代表RegExp.lastMatch
+      $`:代表RegExp.rightContext
+      $':代表RegExp.leftContext
+      $n:代表匹配第n个捕获组的子字符串
+      $nn:匹配第nn捕获组的子字符串
+      
 6、search方法：返回正则表达式第一次匹配的位置。不执行全局匹配，它将忽略标志 g和lastIndex属性。格式：str.search(reg)。
 
 7、split方法：用于把一个字符串分割成字符串数组。格式：str.split(str/reg,返回数组的最大长度)。
